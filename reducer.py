@@ -1,35 +1,40 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import sys
-from collections import Counter
 import math
-
-# Function to calculate TF
+#counter used to find frequency of each word in sentence
+from collections import Counter
 def frequency_finder(t):
     words = t.split()
     word_f = Counter(words)
     return word_f
 
-# Read data from mapper and create a dictionary with ID and section text
+#reading from mapper and making a dictionary with ID and Section Text
 data = {}
 for line in sys.stdin:
-    line = line.strip()
-    ID, text = line.split(',', 1)
-    data[ID] = text
+    line=line.strip()
+    ID,text=line.split(',', 1)
+    data[ID]=text
 
-# Create vocabulary
+#Making vocabulary
 vocabulary = set()
 for text in data.values():
     vocabulary.update(text.split())
 
-# Store vocabulary in the form of index and word as key
-vocab = {word: index for index, word in enumerate(vocabulary)}
+vocabulary=sorted(vocabulary)
 
-# Calculate TF
+#storing vocabulary in form of index and word as key   
+vocab= {}
+for index, word in enumerate(vocabulary):
+    vocab[word] = index
+
+#finding tf if word present in vocabulary storing it with index and in vocabulary and frequency in sentence   
 TF = {}
-for doc_id, text in data.items():
-    word_freq = frequency_finder(text)
-    tf = [(vocab[word], freq) for word, freq in word_freq.items() if word in vocab]
-    TF[doc_id] = tf
+for i, text in data.items():
+    j = frequency_finder(text)
+    tf = [(vocab[key], value) for key, value in j.items() if key in vocabulary]
+    TF[i] = tf 
+
+print(TF['0'])
 
 # Calculate IDF
 # Counting the number of documents (or sentences) in your corpus
@@ -98,8 +103,7 @@ for doc_id, tf_data in TF.items():
     vector_space[doc_id] = sparse_vector
 
 # Print sparse vector representation for each document
-#for doc_id, sparse_vector in vector_space.items():
-#    vector_str = ", ".join(f"({idx}: {weight})" for idx, weight in sparse_vector)
-#    print(f"The sparse vector representation for document {doc_id} is as follows:")
-#    print("[", vector_str, "]")
-
+for doc_id, sparse_vector in vector_space.items():
+    vector_str = ", ".join(f"({idx}: {weight})" for idx, weight in sparse_vector)
+    print(f"The sparse vector representation for document {doc_id} is as follows:")
+    print("[", vector_str, "]")
