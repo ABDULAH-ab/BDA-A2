@@ -21,4 +21,4 @@ The repository contains a basic Text based search application implementation usi
 This project exists thanks to my fellow group members:
 
 ### Saim Nadeem (i221884@nu.edu.pk)
-### SHazer Nadeem (i222043@nu.edu.pk)
+### Shazer Nadeem (i222043@nu.edu.pk)
