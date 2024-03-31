@@ -103,7 +103,7 @@ for doc_id, tf_data in TF.items():
     vector_space[doc_id] = sparse_vector
 
 # Print sparse vector representation for each document
-for doc_id, sparse_vector in vector_space.items():
+'''for doc_id, sparse_vector in vector_space.items():
     vector_str = ", ".join(f"({idx}: {weight})" for idx, weight in sparse_vector)
     print(f"The sparse vector representation for document {doc_id} is as follows:")
-    print("[", vector_str, "]")
+    print("[", vector_str, "]")'''
